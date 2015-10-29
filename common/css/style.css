@@ -1,0 +1,159 @@
+html {
+    height: 100%;
+    width: 100%;
+}
+body {
+    height: inherit;
+    width: inherit;
+    position: absolute;
+    overflow: hidden;
+}
+th {
+    text-align: center;
+}
+hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+output {
+    padding-top: initial;
+}
+label {
+    margin: auto;
+}
+#conteudo {
+    margin-top: 50px;
+    height: calc(100% - 50px);
+}
+
+.ui-dialog {
+    z-index: 1300;
+}
+
+.ui-widget-content{
+    background: #FFFFFF;
+    color: black;
+}
+.panel.panel-jquery {
+    border-color: #333;
+}
+#conteudo .panel.panel-jquery {
+    height: calc(100% - 20px);
+}
+.panel.panel-jquery .panel-heading {
+    color: #fff;
+    border-color: #333;
+    background: #333 url("../framework/images/ui-bg_gloss-wave_25_333333_500x100.png") 50% 50% repeat-x;
+}
+.panel.panel-jquery .panel-body {
+    padding: 5px;
+}
+
+.table.table-bordered th{
+    background-color: rgb(99, 99, 99);
+    color: white;
+    text-transform: uppercase;
+}
+.table.table-bordered th output {
+    color: white;
+}
+
+.div-model-table {
+    height: calc(100% - 41px);
+    overflow: auto;
+}
+.div-model-table table tr td{
+    vertical-align: middle;
+
+}
+
+form.model-form {
+    /*width: 500px;*/
+}
+form.model-form table tr td {
+    vertical-align: middle;
+}
+form.model-form input {
+    height: 27px;
+    padding: 0px 2px;
+}
+/*form.model-form input:invalid, form.model-form select:invalid{
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAeVJREFUeNqkU01oE1EQ/mazSTdRmqSxLVSJVKU9RYoHD8WfHr16kh5EFA8eSy6hXrwUPBSKZ6E9V1CU4tGf0DZWDEQrGkhprRDbCvlpavan3ezu+LLSUnADLZnHwHvzmJlvvpkhZkY7IqFNaTuAfPhhP/8Uo87SGSaDsP27hgYM/lUpy6lHdqsAtM+BPfvqKp3ufYKwcgmWCug6oKmrrG3PoaqngWjdd/922hOBs5C/jJA6x7AiUt8VYVUAVQXXShfIqCYRMZO8/N1N+B8H1sOUwivpSUSVCJ2MAjtVwBAIdv+AQkHQqbOgc+fBvorjyQENDcch16/BtkQdAlC4E6jrYHGgGU18Io3gmhzJuwub6/fQJYNi/YBpCifhbDaAPXFvCBVxXbvfbNGFeN8DkjogWAd8DljV3KRutcEAeHMN/HXZ4p9bhncJHCyhNx52R0Kv/XNuQvYBnM+CP7xddXL5KaJw0TMAF8qjnMvegeK/SLHubhpKDKIrJDlvXoMX3y9xcSMZyBQ+tpyk5hzsa2Ns7LGdfWdbL6fZvHn92d7dgROH/730YBLtiZmEdGPkFnhX4kxmjVe2xgPfCtrRd6GHRtEh9zsL8xVe+pwSzj+OtwvletZZ/wLeKD71L+ZeHHWZ/gowABkp7AwwnEjFAAAAAElFTkSuQmCC);
+    background-position: right center;
+    background-repeat: no-repeat;
+}*/
+/*form.model-form input:required:valid, form.model-form select:required:valid {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAepJREFUeNrEk79PFEEUx9/uDDd7v/AAQQnEQokmJCRGwc7/QeM/YGVxsZJQYI/EhCChICYmUJigNBSGzobQaI5SaYRw6imne0d2D/bYmZ3dGd+YQKEHYiyc5GUyb3Y+77vfeWNpreFfhvXfAWAAJtbKi7dff1rWK9vPHx3mThP2Iaipk5EzTg8Qmru38H7izmkFHAF4WH1R52654PR0Oamzj2dKxYt/Bbg1OPZuY3d9aU82VGem/5LtnJscLxWzfzRxaWNqWJP0XUadIbSzu5DuvUJpzq7sfYBKsP1GJeLB+PWpt8cCXm4+2+zLXx4guKiLXWA2Nc5ChOuacMEPv20FkT+dIawyenVi5VcAbcigWzXLeNiDRCdwId0LFm5IUMBIBgrp8wOEsFlfeCGm23/zoBZWn9a4C314A1nCoM1OAVccuGyCkPs/P+pIdVIOkG9pIh6YlyqCrwhRKD3GygK9PUBImIQQxRi4b2O+JcCLg8+e8NZiLVEygwCrWpYF0jQJziYU/ho2TUuCPTn8hHcQNuZy1/94sAMOzQHDeqaij7Cd8Dt8CatGhX3iWxgtFW/m29pnUjR7TSQcRCIAVW1FSr6KAVYdi+5Pj8yunviYHq7f72po3Y9dbi7CxzDO1+duzCXH9cEPAQYAhJELY/AqBtwAAAAASUVORK5CYII=);
+    background-position: right center;
+    background-repeat: no-repeat;
+}*/
+form.model-form input[type="text"] {
+    width: 100%;
+}
+form.model-form input[type="number"] {
+    width: 85px;
+}
+form.model-form input[type="checkbox"] {
+    margin: 0px;
+    width: 27px;
+    display: block;
+}
+form.model-form input[type="date"] {
+    width: 140px;
+}
+form.model-form select {
+    height: 26px;
+}
+div.model-forms {
+    display: inline-flex;
+    width: calc(100% - 15px) !important;
+    /*height: calc(100% - 105px) !important;*/
+}
+div.model-forms form.model-form:nth-child(n+2) {
+    margin-left: 15px;
+    width: initial;
+}
+
+#duelo-gerador table {
+    width: 100%;
+    height: 100%;
+}
+#duelo-gerador table td:first-child, #duelo-gerador table td:nth-child(2) {
+    text-align: center;
+}
+
+form.navbar-form label {
+    color: whitesmoke;
+}
+
+input.form-control[type="number"] {
+    width: 85px;
+}
+
+input.checkbox-panel {
+    width: 30px;
+    height: 30px;
+    margin-top: 0px;
+    vertical-align: middle;
+}
+button:focus {
+    outline: none;
+}
+button.botao-icon {
+    width: 25px;
+    height: 25px;
+}
+
+table.table-former tr td:first-child, table.table-former tr th:first-child {
+    text-align: right;
+    width: 25%;
+}
+table.table-former tr td:last-child, table.table-former tr th:last-child {
+    text-align: left;
+    width: 75%;
+}
+
+
+select:disabled {
+    color: graytext;
+}
