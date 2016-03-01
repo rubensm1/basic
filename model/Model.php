@@ -1,6 +1,6 @@
 <?php
 
-class Model implements JsonSerializable {
+abstract class Model implements JsonSerializable {
 
     protected static $conexao;
     protected static $useTable = FALSE;
@@ -9,13 +9,17 @@ class Model implements JsonSerializable {
 
     function Model($id = 0) {
 		$class = get_class($this);
-		if ($class::$useTable != FALSE) {
-			if (self::$conexao == NULL) 
-			self::$conexao = new Connexao();
+		if ($class::$useTable || $class == "Model") {
+			self::init();
 			//$this->id = self::lastID();
 			$this->id = $id;
 		}
     }
+	
+	public static function init() {
+		if (self::$conexao == NULL) 
+			self::$conexao = new Connexao();
+	}
 
     public function getId() {
 		return $this->id;
@@ -62,6 +66,18 @@ class Model implements JsonSerializable {
 		return self::$conexao->executeQueryAll($sql, $valores);
     }
 
+	public static function loadList($valores = NULL, $orderBy = NULL, $groupBy = NULL, $limit = NULL) {
+		$class = get_called_class();
+		$generics = $class::select(NULL, $valores, $orderBy, $groupBy, $limit);
+		$models = array();
+		foreach ($generics as $generic)
+			if ( isset($generic['id']) )
+				$models[(int) $generic['id']] = new $class($generic);
+			else
+				$models[] = new $class($generic);
+		return $models;
+	}
+	
     public function persist() {
 		$class = get_class($this);
 		if ($class::$useTable == FALSE)
@@ -111,7 +127,7 @@ class Model implements JsonSerializable {
      * Seleciona todos os campos da tabela referente ao modelo.
      * @return Array resultado da consulta
      */
-    public static function all2($limit = 0) {
+    public static function allMap($limit = 0) {
 	    $class = get_called_class();
 	    $sql = 'SELECT * FROM ' . $class::$useTable . ' ORDER BY id' . ($limit ? " LIMIT $limit" : "");
 	    $consulta = self::$conexao->executeQueryObjectAll($sql);

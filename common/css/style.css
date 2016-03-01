@@ -22,7 +22,7 @@ label {
     margin: auto;
 }
 #conteudo {
-    margin-top: 50px;
+    margin: 60px 10px 10px 10px;
     height: calc(100% - 50px);
 }
 
@@ -38,7 +38,7 @@ label {
     border-color: #333;
 }
 #conteudo .panel.panel-jquery {
-    height: calc(100% - 20px);
+    height: calc(100% - 75px);
 }
 .panel.panel-jquery .panel-heading {
     color: #fff;

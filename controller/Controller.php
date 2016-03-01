@@ -11,7 +11,7 @@
  * <b>Metodos</b> podem ser chamados quando uma pagina é aberta
  * Os metodos são executados antes da 
  * */
-class Controller {
+abstract class Controller {
 
     public $viewVars = array();
     protected $model;

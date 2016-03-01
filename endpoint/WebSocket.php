@@ -38,6 +38,11 @@ abstract class WebSocket {
 	
 	/* @var resource cria o socket que escutará conexões */
 	$this->serverSocket = socket_create(AF_INET, SOCK_STREAM, getprotobyname('TCP'));
+	
+	if (!socket_set_option($this->serverSocket, SOL_SOCKET, SO_REUSEADDR, 1)) { 
+        echo socket_strerror(socket_last_error($this->serverSocket)); 
+        exit; 
+    } 
 
 	/* seta o host e a porta */
 	if (!@socket_bind($this->serverSocket, 0, $this->port))
@@ -233,7 +238,7 @@ abstract class WebSocket {
      * @return void  
      */
     private function performHandshaking($headerRecebido, $clientSocket, $host = "localhost") {
-	$headers = array();
+	$headers = array(); $this->logServidor($headerRecebido);
 	$lines = preg_split("/\r\n/", $headerRecebido);
 	$matches = NULL;
 	foreach ($lines as $line) {

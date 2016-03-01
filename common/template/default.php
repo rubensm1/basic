@@ -11,7 +11,6 @@
         <link href="common/framework/jquery-ui.min.css" rel="stylesheet" />
         <link href="common/framework/bootstrap.min.css" rel="stylesheet" />
         <link href="common/css/style.css" rel="stylesheet" />
-        <link href="common/css/estilo-svg-png.css" rel="stylesheet" />
 
         <!-- Javascript -->
         <script src="common/framework/jquery.min.js"></script>
@@ -19,11 +18,6 @@
         <script src="common/framework/jquery-ui.min.js"></script>
         <!-- http://igorescobar.github.io/jQuery-Mask-Plugin/ -->
         <script src="common/framework/jquery.mask.min.js"></script>
-
-
-        <script type="text/javascript" src="common/framework/rgbcolor.js"></script> 
-        <script type="text/javascript" src="common/framework/canvg.js"></script>
-
         <script src="view/view.js"></script>
         <script src="view/<?php echo $name . '/' . $name . '.js' ?>"></script>
 
@@ -94,8 +88,7 @@
 
         <div id="conteudo" >
             <?php
-            func_include($page);
-            //var_dump($this);
+            echo func_include_x($page, $GLOBALS['obj']->vars);
             ?>
         </div>
         <div id="echo" style="display:none;"><?php if (isset($echo)) echo $echo; ?></div>

@@ -16,7 +16,7 @@ class Connexao {
     function Connexao() {
 	include 'DataBaseConfig.php';
 	if (DataBaseConfig::PASS == '')
-	    $this->conexao = new PDO('mysql:host=' . DataBaseConfig::HOST . ';port=3306;dbname=' . DataBaseConfig::BANCO, DataBaseConfig::USER); // conecta o servidor
+	    $this->conexao = new PDO('mysql:host=' . DataBaseConfig::HOST . ';port=' . DataBaseConfig::PORT . ';dbname=' . DataBaseConfig::BANCO, DataBaseConfig::USER); // conecta o servidor
 	else
 	    $this->conexao = new PDO('mysql:host=' . DataBaseConfig::HOST . ';port=' . DataBaseConfig::PORT . ';dbname=' . DataBaseConfig::BANCO, DataBaseConfig::USER, DataBaseConfig::PASS); // conecta o servidor
 	$this->conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
