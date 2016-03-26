@@ -105,7 +105,11 @@ abstract class Model implements JsonSerializable {
 			return FALSE;
 		if ($class::load($this->id))
 			$sql = self::geraDelete(array('id' => $this->id));
-		return $sql;
+		else
+			return FALSE;
+		self::$conexao->query($sql);
+		self::$conexao->execute(array('id' => $this->id));
+		return TRUE;
     }
 
     /**

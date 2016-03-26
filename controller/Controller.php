@@ -41,7 +41,8 @@ abstract class Controller {
     protected function uses($model, $nivel = '') {
         if(!isset($this->uses[$model])){/*verifica se o model ja foi incluso*/
             //include_once $nivel . 'model/' . $model . '.php';/*inclui o model*/
-			func_require($nivel . 'model/' . ucfirst($model) . '.php', $this);
+			//func_require($nivel . 'model/' . ucfirst($model) . '.php', $this);
+			Utils::incluir($model, "Model", $nivel);
             $nameModel = ucfirst($model);
             $classModel = $model; /*claseModel*/
             $this->uses[$model] = $nameModel; /*adiciono o model na lida te models utilizados*/

@@ -19,7 +19,7 @@
         <!-- http://igorescobar.github.io/jQuery-Mask-Plugin/ -->
         <script src="common/framework/jquery.mask.min.js"></script>
         <script src="view/view.js"></script>
-        <script src="view/<?php echo $name . '/' . $name . '.js' ?>"></script>
+        <?php echo isset($name) ? '<script src="view/'. $name . '/' . $name .'.js"></script>' : ""; ?>
 
         <script>
             jQuery.fn.serializeObject = function () {
@@ -29,6 +29,14 @@
                 });
                 return data;
             };
+			jQuery.fn.deserializeObject = function (data) {
+				var f = jQuery(this);
+				var find = function (selector) { return f.is("form") ? f.find(selector) : f.filter(selector); };
+				jQuery.each(data, function (n, v) {
+					find("[name='" + n + "']").val(v);
+				})
+				return this;
+			};
             /*Array.prototype.switch = function (value, index) {
                 var indexOld = this.indexOf(value);
                 if (indexOld >= 0)
