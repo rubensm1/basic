@@ -1,0 +1,106 @@
+<html>
+    <head>
+        <title>Primos</title>
+        <script>
+            function EhPrimo(num)
+            {
+                var i;
+                if (num == 2)
+                    return true;
+                if (num & 1 == 0)
+                    return false;
+                rnum = Math.pow(num, 1 / 2)
+                for (i = 3; i <= rnum; i = i + 2)
+                {
+                    if (num % i == 0)
+                        return false;
+                }
+                return true;
+            }
+            function Exec()
+            {
+                var limite = parseInt(document.getElementById("campo_texto").value);
+                var primos = [];
+                if (limite >= 2)
+                    primos.push(2);
+                for (var i = 3; i <= limite; i = i + 2)
+                    if (EhPrimo(i))
+                        primos.push(i);
+                document.getElementById("resultado").innerHTML = primos.join(", ");
+                terminado();
+            }
+            function execDireto() {
+                iniciando();
+                Exec();
+            }
+            function execIndireto() {
+                iniciando();
+                setTimeout(Exec, 10);
+            }
+            function execWorker() {
+                iniciando();
+                var w = new Worker("worker.js");
+                w.onmessage = function (event) {
+                    if (event.data) {
+                        document.getElementById("resultado").innerHTML = event.data;
+                        w.terminate();
+                        terminado();
+                    }
+                };
+                w.postMessage({'num': document.getElementById("campo_texto").value});
+            }
+            function iniciando() {
+                document.getElementById("out").innerHTML = "processando...";
+                document.getElementById("botao1").setAttribute("disabled", "");
+                document.getElementById("botao2").setAttribute("disabled", "");
+                document.getElementById("botao3").setAttribute("disabled", "");
+                //alert("palsa");
+            }
+            function terminado() {
+                document.getElementById("out").innerHTML = "Pronto!";
+                document.getElementById("botao1").removeAttribute("disabled");
+                document.getElementById("botao2").removeAttribute("disabled");
+                document.getElementById("botao3").removeAttribute("disabled");
+            }
+
+
+            var tempo = 0;
+            var intervalID = null;
+            function maisTempo() {
+                if (!intervalID)
+                    intervalID = setInterval(maisTempo, 100);
+                tempo++;
+                document.getElementById("tempoOut").innerHTML = tempo;
+            }
+            function zeraTempo() {
+                if (intervalID)
+                    clearInterval(intervalID);
+                intervalID = null;
+                tempo = 0;
+                document.getElementById("tempoOut").innerHTML = tempo;
+            }
+        </script>
+    </head>
+
+    <body>
+        <h1>Gerador de Primos</h1>
+        <br />
+        Executar:
+        <input type="text" id="campo_texto" value="" />
+        <input type="button" id="botao1" value="Executar Direto" onClick="execDireto()" />
+        <input type="button" id="botao2" value="Executar Indireto" onClick="execIndireto()" />
+        <input type="button" id="botao3" value="Executar Worker" onClick="execWorker()" />
+        <input type="button" id="botao4" value="Texto Qualquer" onClick="document.getElementById('out').innerHTML = 'Um Texto Qualquer'" />
+        <br />
+        <output id="out">Um Texto Qualquer</output>
+        <br />
+        <br />
+        Tempo:
+        <input type="button" id="botao5" value="Iniciar" onClick="maisTempo()" />
+        <input type="button" id="botao6" value="Parar" onClick="zeraTempo()" />
+        <output id="tempoOut">0</output>
+
+        <p id="resultado">Insira o n�mero e em seguida clique em executar.</p>
+    </body>
+
+</html>

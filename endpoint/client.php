@@ -5,8 +5,8 @@
 			ClientWebSocket = (function (){
 				function ClientWebSocket() {
 					this.porta = 5555;
-					//this.conexao = new WebSocket("ws://"+document.location.hostname+":"+this.porta);
-					this.conexao = new WebSocket("ws://"+document.location.hostname+"/basic/ws");
+					this.conexao = new WebSocket("ws://"+document.location.hostname+":"+this.porta);
+					//this.conexao = new WebSocket("ws://"+document.location.hostname+"/ws");
 					var thisLocal = this;
 					this.conexao.onopen = function(msg) {
 						
