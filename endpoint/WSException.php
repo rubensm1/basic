@@ -8,6 +8,7 @@ class EndPointException extends Exception {
     const OK = 0;
     const BIND_ERROR = 1;
     const LISTEN_ERROR = 2;
+	const ENCODE_ERROR = 3;
 
 
     // Redefine a exceção de forma que a mensagem não seja opcional
