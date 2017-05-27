@@ -65,6 +65,8 @@ class View {
      * Mostra a pagina
      * */
     public function render() {
+		if ($this->error)
+			throw new Exception($this->error);
 		echo $this->html;
     }
 

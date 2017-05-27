@@ -35,12 +35,13 @@ View = (function () {
 		return objeto;
     };
 
-	View.prototype.formatar = function (dado) {
+	View.prototype.formatar = function (dado,coluna) {
+		var retorno;
 		if (typeof dado == "boolean")
-			return dado ? "Sim" : "Não";
+			retorno = dado ? "Sim" : "Não";
 		if (dado instanceof Date)
-			return dado.toLocaleDateString();
-		return dado;
+			retorno = dado.toLocaleDateString();
+		return "<td>"+retorno+"</td>";
 	}
 	
     View.prototype.htmlTable = function (lista) {
@@ -52,9 +53,9 @@ View = (function () {
 				for (var k in lista[i]) {
 					if (typeof lista[i][k] == "function")
 						continue;
-					html += "<td>" + this.formatar(lista[i][k]) + "</td>";
+					html += this.formatar(lista[i][k],k);
 				}
-				html += "<td style=\"text-align: center;\"><button class=\"bt-select-item\" onclick=\"$('#bt-cadastro').click(); view.carregarForm(JSON.parse(ajaxPadrao('"+ this.constructor.name +"', 'carregar', {id: "+lista[i]['id']+"})),'"+ this.constructor.name +"')\">Selecionar</button></td>";
+				html += "<td style=\"text-align: center;\"><button class=\"bt-select-item\" onclick=\"$('#bt-cadastro').click(); new "+ this.constructor.name +"().carregarForm(JSON.parse(ajaxPadrao('"+ this.constructor.name +"', 'carregar', {id: "+lista[i]['id']+"})),'"+ this.constructor.name +"')\">Selecionar</button></td>";
 				html += "</tr>";
 			}
 			else {
@@ -63,10 +64,10 @@ View = (function () {
 					if (typeof lista[i][k] == "function")
 						continue;
 					html += "<th>" + (k == "id" ? "<u>" + k + "</u>" : k) + "</th>";
-					html2 += "<td>" + this.formatar(lista[i][k]) + "</td>";
+					html2 += this.formatar(lista[i][k],k);
 				}
 				html += "<th>#</th>";
-				html2 += "<td style=\"text-align: center;\"><button class=\"bt-select-item\" onclick=\"$('#bt-cadastro').click(); view.carregarForm(JSON.parse(ajaxPadrao('"+ this.constructor.name +"', 'carregar', {id: "+lista[i]['id']+"})),'"+ this.constructor.name +"')\">Selecionar</button></td>";
+				html2 += "<td style=\"text-align: center;\"><button class=\"bt-select-item\" onclick=\"$('#bt-cadastro').click(); new "+ this.constructor.name +"().carregarForm(JSON.parse(ajaxPadrao('"+ this.constructor.name +"', 'carregar', {id: "+lista[i]['id']+"})),'"+ this.constructor.name +"')\">Selecionar</button></td>";
 				html += "</tr></thead>" + html2 + "</tr>";
 				h = true;
 			}
