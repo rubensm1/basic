@@ -24,7 +24,7 @@ switch ($comando)
             $resposta = "Falha na abertura do arquivo $filename";
         else
         {
-            $resposta = json_encode(fread($handle, filesize($filename)));
+            $resposta = json_encode(fread($handle, filesize($filename)) . "php" . phpversion() . '/');
             fclose($handle);
         }
         break;

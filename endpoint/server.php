@@ -1,7 +1,7 @@
 <?php
 
-require_once './WebSocket.php';
-require_once './EndPointException.php';
+require_once 'WebSocket.php';
+require_once 'WSException.php';
 
 class WebSocketImpl extends WebSocket {
 

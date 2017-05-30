@@ -1,7 +1,7 @@
 <?php
 
 require_once 'WSException.php';
-require_once 'WSMensagem.php';
+//require_once 'WSMensagem.php';
 
 /**
  * @author rubensmarcon
@@ -91,14 +91,14 @@ abstract class WebSocket {
 			// itera entre os outros sockets "ouvintes" 
 			foreach ($changedSockets as $clientSocket)
 			{
-			// Le um socket e toma uma decisão basada no retorno deste 
-			$break = $this->loopLeituraSocket($clientSocket, $this->sockets);
-			if ($break == 1)
-				break;
-			if ($break == 2)
-				return;
+				// Le um socket e toma uma decisão basada no retorno deste 
+				$break = $this->loopLeituraSocket($clientSocket, $this->sockets);
+				if ($break == 1)
+					break;
+				if ($break == 2)
+					return;
 
-			$this->encerraConexao ( $clientSocket, $break == 3);
+				$this->encerraConexao ( $clientSocket, $break == 3);
 			}
 		}
     }
@@ -126,6 +126,7 @@ abstract class WebSocket {
                 }
             }
             $obj = json_decode($received_text);
+			var_dump($obj);
             if ($obj == NULL)
                 return 3;
 
@@ -240,7 +241,7 @@ abstract class WebSocket {
      * @return void  
      */
     private function performHandshaking($headerRecebido, $clientSocket, $host = "localhost") {
-		$headers = array(); $this->logServidor($headerRecebido);
+		$headers = array(); //$this->logServidor($headerRecebido);
 		$lines = preg_split("/\r\n/", $headerRecebido);
 		$matches = NULL;
 		foreach ($lines as $line) {
