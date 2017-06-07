@@ -3,7 +3,7 @@
 /**
  * @author rubensmarcon
  */
-class EndPointException extends Exception {
+class WSException extends Exception {
     
     const OK = 0;
     const BIND_ERROR = 1;
@@ -12,7 +12,7 @@ class EndPointException extends Exception {
 
 
     // Redefine a exceção de forma que a mensagem não seja opcional
-    public function EndPointException($message, $code = 0, $previous = null) {
+    public function WSException($message, $code = 0, $previous = null) {
         // código
     
         // garante que tudo está corretamente inicializado
