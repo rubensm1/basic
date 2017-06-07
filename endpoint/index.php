@@ -75,6 +75,14 @@
             /** @var String cache de comandos para interagir com o servidor */
             var comandos = [0];
 
+			WSAdmin = new (function () {
+				function WSAdmin (subtype, comando) {
+					this.subtype = subtype;
+					this.comando = comando;
+				}
+				return WSAdmin;
+			})();
+			
             /**
              * Método que faz a invocação ao arquivo php que inicia o servidor
              * @param {String} URL local do arquivo php que inicia o servidor
@@ -228,20 +236,21 @@
 
                             break;
                         case "login":
-                            if (conexao != null && obj.subtype != "init")
+                            if (conexao != null && obj.dados != "init")
                                 return;
                             var msg = new Object();
                             msg.type = "admin";
-                            msg.subtype = "init";
+							msg.classe = "Object";
+							msg.dados = JSON.stringify(new WSAdmin("init", ""));
                             conexao.send(JSON.stringify(msg));
                             mensagem("Conectado!", false, false);
                             break;
                         case "log":
                             if (document.getElementById("habLog").checked)
-                                logs(obj.log);
+                                logs(obj.dados);
                             break;
                         case "echo":
-                            logs(obj.echo);
+                            logs(obj.dados);
                             break;
                     }
 
@@ -282,7 +291,8 @@
                 {
                     var msg = new Object();
                     msg.type = "admin";
-                    msg.subtype = "matar";
+					msg.classe = "Object";
+					msg.dados = JSON.stringify(new WSAdmin("matar", ""));
                     conexao.send(JSON.stringify(msg));
                     conexao.close();
                     conexao = null;
@@ -435,17 +445,18 @@
                     case 13:
                         var msg = new Object();
                         msg.type = 'admin';
-                        msg.subtype = 'eval';
-                        msg.comando = event.srcElement.value;
-                        if (msg.comando == "")
+						msg.classe = "Object";
+                        var comando = event.srcElement.value;
+                        if (comando == "")
                             return;
-                        if (comandos[comandos.length - 1] != msg.comando && comandos[comandos[0]] != msg.comando)
+                        if (comandos[comandos.length - 1] != comando && comandos[comandos[0]] != comando)
                         {
-                            comandos.push(msg.comando);
+                            comandos.push(comando);
                             comandos[0] = comandos.length;
                         }
                         else
                             comandos[0]++;
+						msg.dados = JSON.stringify(new WSAdmin("eval", comando));
                         conexao.send(JSON.stringify(msg));
                         event.srcElement.value = "";
                         break;

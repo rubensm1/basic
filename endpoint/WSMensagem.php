@@ -8,14 +8,21 @@ require_once 'WSException.php';
 
 class WSMensagem {
 	
-	private $type;
-	private $dados;
-	private $erro;
+	public $type;
+	public $dados;
+	public $erro;
 	
-	public function WSMensagem($msg) {
-		$this->type = $msg->type;
-		if (!$this->hasErroMensagem($msg->erro)) 
-			$this->encode($msg->classe, $msg->dados);
+	public function WSMensagem($msg, $classe = NULL, $dados = NULL, $erro = NULL) {
+		if (gettype($msg) == "string") {
+			$this->type = $msg;
+			if (!$this->hasErroMensagem($erro)) 
+				$this->encode($classe, $dados);
+		}
+		else {
+			$this->type = $msg->type;
+			if (!$this->hasErroMensagem(isset ($msg->erro) ? $msg->erro : "")) 
+				$this->encode($msg->classe, $msg->dados);
+		}
 	}
 	
 	public function encode($classe, $dados) {
@@ -26,7 +33,7 @@ class WSMensagem {
 			strcasecmp($classe, "Float") == 0 ||
 			strcasecmp($classe, "Double") == 0 ||
 			strcasecmp($classe, "String") == 0 ) {
-			$this->dados = eval ("($classe) '$dados'");	
+			eval ('$this->dados' . " = ($classe) '$dados';");
 		}
 		elseif (strcasecmp($classe, "Array") == 0) {
 			$this->dados = json_decode ($dados);

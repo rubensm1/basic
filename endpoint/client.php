@@ -21,7 +21,7 @@
 						}
 						switch(obj.type) {
 							case "chat":
-								document.getElementById("conteudoMensagem").innerHTML += "\n" + obj.mensagem;
+								document.getElementById("conteudoMensagem").innerHTML += "\n" + obj.dados;
 								//thisLocal.chat.conector(obj);
 								break;
 						}
@@ -36,7 +36,8 @@
 				ClientWebSocket.prototype.chat = function (mensagem) {
 					var msg = new Object();
 					msg.type = "chat";
-					msg.mensagem = mensagem; 
+					msg.classe = "String"; 
+					msg.dados = mensagem;
 					this.conexao.send(JSON.stringify(msg));
 				};
 	

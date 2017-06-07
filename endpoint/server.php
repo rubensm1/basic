@@ -2,6 +2,7 @@
 
 require_once 'WebSocket.php';
 require_once 'WSException.php';
+require_once 'WSMensagem.php';
 
 class WebSocketImpl extends WebSocket {
 
@@ -20,7 +21,7 @@ class WebSocketImpl extends WebSocket {
 
     protected function onOpen(&$clientSocket) {
         /* enviar comando de aceite ao solicitante */
-        $this->enviaDadoSocket(array('type' => 'login', 'subtype' => 'init'), $clientSocket);
+		$this->enviaDadoSocket(new WSMensagem('login','String','init'), $clientSocket);
     }
 
     protected function onError($error, &$clientSocket) {

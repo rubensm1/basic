@@ -1,7 +1,7 @@
 <?php
 
 require_once 'WSException.php';
-//require_once 'WSMensagem.php';
+require_once 'WSMensagem.php';
 
 /**
  * @author rubensmarcon
@@ -125,7 +125,7 @@ abstract class WebSocket {
                     return 0;
                 }
             }
-            $obj = json_decode($received_text);
+            $obj = new WSMensagem (json_decode($received_text));
 			var_dump($obj);
             if ($obj == NULL)
                 return 3;
@@ -140,16 +140,17 @@ abstract class WebSocket {
                     /* bloqueio para que exista apenas um conectado */
                     if ($this->adminSocket != NULL && $this->adminSocket != $clientSocket)
                         throw new Exception("Falha! Já existe um administrador utilizando!");
-                    if ($obj->subtype == "init")
+					var_dump($obj->dados);
+                    if ($obj->dados->subtype == "init")
                         $this->adminSocket = $clientSocket;
-                    elseif ($obj->subtype == "matar")
+                    elseif ($obj->dados->subtype == "matar")
                         $matarServer = true;
-                    elseif ($obj->subtype == "eval")
+                    elseif ($obj->dados->subtype == "eval")
                     {
                         ob_start();
-                        eval($obj->comando);
+                        eval($obj->dados->comando);
                         //$resp = (object) array("type" => 'echo', "echo" => ob_get_clean());
-                        $resp = (object) array("type" => 'echo', "echo" => ob_get_clean());
+                        $resp = (object) array("type" => 'echo', "classe"=>"String", "dados" => ob_get_clean());
                         $this->enviaDadoSocket($resp, $clientSocket);
                         //ob_clean();
                     }
@@ -349,7 +350,7 @@ abstract class WebSocket {
         echo $text;
         if ($this->adminSocket != NULL && get_resource_type($this->adminSocket) == "Socket")
         {
-            $log = (object) array("type" => 'log', "log" => $text);
+            $log = (object) array("type" => 'log', "classe"=>"String", "dados" => $text, "erro" => "");
             $mensagem = $this->mask(json_encode($log));
             $this->enviaMensagemSocket($mensagem, strlen($mensagem), $this->adminSocket);
         }
