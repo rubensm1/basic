@@ -12,20 +12,20 @@ class WSMensagem {
 	public $dados;
 	public $erro;
 	
-	public function WSMensagem($msg, $classe = NULL, $dados = NULL, $erro = NULL) {
+	public function WSMensagem($msg, $classe = NULL, $dados = NULL, $erro = NULL, $preencode = FALSE) {
 		if (gettype($msg) == "string") {
 			$this->type = $msg;
 			if (!$this->hasErroMensagem($erro)) 
-				$this->encode($classe, $dados);
+				$this->encode($classe, $dados, $preencode);
 		}
 		else {
 			$this->type = $msg->type;
 			if (!$this->hasErroMensagem(isset ($msg->erro) ? $msg->erro : "")) 
-				$this->encode($msg->classe, $msg->dados);
+				$this->encode($msg->classe, $msg->dados, $preencode);
 		}
 	}
 	
-	public function encode($classe, $dados) {
+	public function encode($classe, $dados, $preencode = FALSE) {
 		if (strcasecmp($classe, "Bool") == 0 || 
 			strcasecmp($classe, "Boolean") == 0 || 
 			strcasecmp($classe, "Int") == 0 ||
@@ -36,13 +36,13 @@ class WSMensagem {
 			eval ('$this->dados' . " = ($classe) '$dados';");
 		}
 		elseif (strcasecmp($classe, "Array") == 0) {
-			$this->dados = json_decode ($dados);
+			$this->dados = json_decode ($dados, true);
 		}
 		elseif (strcasecmp($classe, "Object") == 0) {
-			$this->dados = (object) json_decode ($dados);
+			$this->dados = json_decode ($dados);
 		}
 		elseif (class_exists($classe)) {
-			$this->dados = new $classe ($dados);
+			$this->dados = $preencode ? $dados : new $classe (json_decode($dados,true));
 		}
 		else {
 			$this->dados = NULL;
