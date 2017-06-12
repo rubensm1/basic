@@ -39,8 +39,10 @@ View = (function () {
 		var retorno;
 		if (typeof dado == "boolean")
 			retorno = dado ? "Sim" : "Não";
-		if (dado instanceof Date)
+		else if (dado instanceof Date)
 			retorno = dado.toLocaleDateString();
+		else 
+			retorno = dado;
 		return "<td>"+retorno+"</td>";
 	}
 	
