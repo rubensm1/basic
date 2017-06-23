@@ -4,6 +4,7 @@ ini_set('display_errors', 1);
 date_default_timezone_set("Brazil/East");
 
 define ("APLICACAO", ":)");
+define ("CONTEXT_PATH", "/basic");
 
 function func_include($dir, $ctx = NULL) {
     return include $dir;
@@ -50,33 +51,25 @@ include_once 'model/Model.php';
 include_once 'controller/Controller.php';
 include_once 'view/View.php';
 
-//Session::start("dota");
+//Session::start("secao");
 
 $view = isset($_GET['view']) && $_GET['view'] ? $_GET['view'] : 'home'; /* pega a visão */
 $action = isset($_GET['action']) && $_GET['action'] ? $_GET['action'] : NULL; /* pega a pagina */
-$method = isset($_GET['method']) && $_GET['method'] ? $_GET['method'] : NULL; /* pega o methodo a executar antes de abrir a pagina */
 
 $data = NULL;
 
-if ($method != NULL) {
-    if (isset($_GET['data'])) {
-		$data = (int) $_GET['data'];
-    } else {
-	if ($_POST)
-	    $data['post'] = $_POST;
-	if ($_FILES)
-	    $data['file'] = $_FILES;
-    }
+if (isset($_GET['data'])) {
+	$data = $_GET['data'];
+} else {
+if ($_POST)
+	$data['post'] = $_POST;
+if ($_FILES)
+	$data['file'] = $_FILES;
 }
-//if(empty($_FILES)) $file = $_FILES;
 
 Utils::incluirMC($view); /* Inclui o medelo e controller da visão */
 
 
-/*echo $view;
-  var_dump($action);
-  var_dump($method);
-  var_dump($data); */
 try {
     $obj = new View($view, $action, $data);
 	$obj->incluirTemplate();
@@ -87,16 +80,3 @@ try {
     $exc->xdebug_message .
     "</table>";
 }
-//$conexao = new PDO('mysql:host=localhost;port=3306;dbname=datamart',"root", "1234");
-
-/* try{
-  $resultado = $conexao->prepare("select * from dimensao_academico");
-  $resultado->execute(array());
-  var_dump($resultado->fetchAll());
-  }catch(PDOException $e){
-  $this->errors[] =  'error: function queryAll<br/>'.$e->getMessage();
-  return NULL;
-  } */
-
-//var_dump($obj->depur);
-//echo ("<html><head></head><body><![CDATA[".$view."]]></body></html>");

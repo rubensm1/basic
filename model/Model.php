@@ -12,8 +12,8 @@ abstract class Model implements JsonSerializable {
 		if ($class::$useTable || $class == "Model") {
 			self::init();
 			//$this->id = self::lastID();
-			$this->id = $id;
 		}
+		$this->id = $id;
     }
 	
 	public static function init() {
@@ -59,10 +59,12 @@ abstract class Model implements JsonSerializable {
 		if ($limit)
 			$sql .= " LIMIT $limit";
 		//throw new Exception($sql);
-		$keys = array_keys($valores);
-		foreach ($keys as $key)
-			if ($valores[$key] === NULL)
-				unset($valores[$key]);
+		if(is_array($valores)) {
+			$keys = array_keys($valores);
+			foreach ($keys as $key)
+				if ($valores[$key] === NULL)
+					unset($valores[$key]);
+		}
 		return self::$conexao->executeQueryAll($sql, $valores);
     }
 
@@ -84,6 +86,7 @@ abstract class Model implements JsonSerializable {
 			return FALSE;
 		$obj = $class::load($this->id);
 		$valores = $this->toArray();
+		self::prepareToPersistInRelationalDatabase($valores);
 		if ($obj)
 			$sql = self::geraUpdate($valores);
 		else {
@@ -114,7 +117,7 @@ abstract class Model implements JsonSerializable {
 
     /**
      * Seleciona todos os campos da tabela referente ao modelo.
-     * @return Array resultado da consulta
+     * @return Array resultado da consulta, com objetos da classe
      */
     public static function all($limit = 0) {
 	    $class = get_called_class();
@@ -129,7 +132,7 @@ abstract class Model implements JsonSerializable {
     
     /**
      * Seleciona todos os campos da tabela referente ao modelo.
-     * @return Array resultado da consulta
+     * @return Array resultado da consulta, com arrays
      */
     public static function allMap($limit = 0) {
 	    $class = get_called_class();
@@ -193,7 +196,7 @@ abstract class Model implements JsonSerializable {
 		$class = get_called_class();
 		$sql = 'SELECT ';
 		if (is_array($campos)) {
-			$campos = implode(",", array_keys($campos));
+			$campos = implode(",", $campos);
 			//$campos = $this->arrayToString($campos); /*gera string com os campos*/
 		}
 		if ($campos != null) {
@@ -291,6 +294,16 @@ abstract class Model implements JsonSerializable {
 		}
 		return $sql;
     }
+	
+	/**
+     * Prepara os valores que são objetos para serem inseridos em um banco de dados Relacional <br/>
+     */
+	private static function prepareToPersistInRelationalDatabase(&$valores){
+		foreach ($valores as $key => $value) {
+			if (is_object($value))
+				$valores[$key] = $value->id;
+		}
+	}
 
     public static function htmlTable($limit = 0) {
 		$class = get_called_class();

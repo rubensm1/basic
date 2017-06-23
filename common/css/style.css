@@ -153,7 +153,16 @@ table.table-former tr td:last-child, table.table-former tr th:last-child {
     width: 75%;
 }
 
-
 select:disabled {
     color: graytext;
+}
+
+/* sobrescrevendo regras do jquery-ui */
+.ui-button-icon-only.reduz-button {
+	width: 25px;
+	height: 25px;
+	vertical-align: baseline;
+}
+.ui-button-icon-only.reduz-button .ui-button-text, .ui-button-icons-only.reduz-button .ui-button-text {
+	padding: initial;
 }

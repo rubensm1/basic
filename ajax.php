@@ -1,6 +1,9 @@
 <?php
 
+date_default_timezone_set("Brazil/East");
+
 define ("APLICACAO", ":)");
+define ("CONTEXT_PATH", "/basic");
 
 function func_include($dir, $ctx = NULL) {
     return include $dir;
@@ -35,7 +38,7 @@ $action = isset($_GET['action']) && $_GET['action'] ? $_GET['action'] : NULL; /*
 $data = NULL;
 
 if (isset($_GET['data'])) {
-    $data = (int) $_GET['data'];
+    $data = $_GET['data'];
 } else {
     if ($_POST)
 	$data = $_POST;

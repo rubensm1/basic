@@ -8,18 +8,19 @@
         <title><?php echo $titulo; ?></title>
 
         <!-- CSS -->
-        <link href="common/framework/jquery-ui.min.css" rel="stylesheet" />
-        <link href="common/framework/bootstrap.min.css" rel="stylesheet" />
+        <link href="<?php echo CONTEXT_PATH; ?>/common/framework/jquery-ui.min.css" rel="stylesheet" />
+        <link href="<?php echo CONTEXT_PATH; ?>/common/framework/bootstrap.min.css" rel="stylesheet" />
+        <link href="<?php echo CONTEXT_PATH; ?>/common/css/style.css" rel="stylesheet" />
         <link href="common/css/style.css" rel="stylesheet" />
 
         <!-- Javascript -->
-        <script src="common/framework/jquery.min.js"></script>
-        <script src="common/framework/bootstrap.min.js"></script>
-        <script src="common/framework/jquery-ui.min.js"></script>
+        <script src="<?php echo CONTEXT_PATH; ?>/common/framework/jquery.min.js"></script>
+        <script src="<?php echo CONTEXT_PATH; ?>/common/framework/bootstrap.min.js"></script>
+        <script src="<?php echo CONTEXT_PATH; ?>/common/framework/jquery-ui.min.js"></script>
         <!-- http://igorescobar.github.io/jQuery-Mask-Plugin/ -->
-        <script src="common/framework/jquery.mask.min.js"></script>
-        <script src="view/view.js"></script>
-        <?php echo isset($name) ? '<script src="view/'. $name . '/' . $name .'.js"></script>' : ""; ?>
+        <script src="<?php echo CONTEXT_PATH; ?>/common/framework/jquery.mask.min.js"></script>
+        <script src="<?php echo CONTEXT_PATH; ?>/view/view.js"></script>
+        <?php echo isset($name) ? '<script src="' . CONTEXT_PATH . '/view/'. $name . '/' . $name .'.js"></script>' : ""; ?>
 
         <script>
             jQuery.fn.serializeObject = function () {
@@ -33,7 +34,10 @@
 				var f = jQuery(this);
 				var find = function (selector) { return f.is("form") ? f.find(selector) : f.filter(selector); };
 				jQuery.each(data, function (n, v) {
-					find("[name='" + n + "']").val(v);
+					var sel = find("[name='" + n + "']")
+					sel.val(v);
+					if (sel.prop("type") == "checkbox")
+						sel.prop("checked", v)
 				})
 				return this;
 			};
@@ -60,7 +64,7 @@
                 $.ajax({
                     //context: $(this),
                     type: "POST",
-                    url: "ajax.php?view=" + view + "&action=" + action,
+                    url: "<?php echo CONTEXT_PATH; ?>/ajax.php?view=" + view + "&action=" + action,
                     //dataType: 'json',
                     data: data,
                     async: false
@@ -91,12 +95,12 @@
     </head>
     <body>
         <?php
-        func_include('common/menu/default.php');
+            func_include('common/menu/default.php');
         ?>
 
         <div id="conteudo" >
             <?php
-            echo func_include_x($page, $GLOBALS['obj']->vars);
+                echo func_include_x($page, $GLOBALS['obj']->vars);
             ?>
         </div>
         <div id="echo" style="display:none;"><?php if (isset($echo)) echo $echo; ?></div>

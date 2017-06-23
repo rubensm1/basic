@@ -57,7 +57,7 @@ View = (function () {
 						continue;
 					html += this.formatar(lista[i][k],k);
 				}
-				html += "<td style=\"text-align: center;\"><button class=\"bt-select-item\" onclick=\"$('#bt-cadastro').click(); new "+ this.constructor.name +"().carregarForm(JSON.parse(ajaxPadrao('"+ this.constructor.name +"', 'carregar', {id: "+lista[i]['id']+"})),'"+ this.constructor.name +"')\">Selecionar</button></td>";
+				html += "<td style=\"text-align: center;\"><button class=\"bt-select-item reduz-button\" onclick=\"$('#bt-cadastro').click(); new "+ this.constructor.name +"().carregarForm(JSON.parse(ajaxPadrao('"+ this.constructor.name +"', 'carregar', {id: "+lista[i]['id']+"})),'"+ this.constructor.name +"')\">Selecionar</button></td>";
 				html += "</tr>";
 			}
 			else {
@@ -69,7 +69,7 @@ View = (function () {
 					html2 += this.formatar(lista[i][k],k);
 				}
 				html += "<th>#</th>";
-				html2 += "<td style=\"text-align: center;\"><button class=\"bt-select-item\" onclick=\"$('#bt-cadastro').click(); new "+ this.constructor.name +"().carregarForm(JSON.parse(ajaxPadrao('"+ this.constructor.name +"', 'carregar', {id: "+lista[i]['id']+"})),'"+ this.constructor.name +"')\">Selecionar</button></td>";
+				html2 += "<td style=\"text-align: center;\"><button class=\"bt-select-item reduz-button\" onclick=\"$('#bt-cadastro').click(); new "+ this.constructor.name +"().carregarForm(JSON.parse(ajaxPadrao('"+ this.constructor.name +"', 'carregar', {id: "+lista[i]['id']+"})),'"+ this.constructor.name +"')\">Selecionar</button></td>";
 				html += "</tr></thead>" + html2 + "</tr>";
 				h = true;
 			}

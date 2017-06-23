@@ -1,6 +1,6 @@
 RewriteEngine on
 
-RewriteRule ^/?([a-z]*)?/?([a-z]*)?/?$    index.php?view=$1&action=$2  [L]
+RewriteRule ^/?([a-z]*)?/?([a-z]*)?/?([a-z0-9]*)?/?$    index.php?view=$1&action=$2&data=$3  [L]
 
 #RewriteRule ws    endpoint/client.php  [L]
 
