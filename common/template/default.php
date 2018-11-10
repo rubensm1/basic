@@ -23,11 +23,15 @@
         <?php echo isset($name) ? '<script src="' . CONTEXT_PATH . '/view/'. $name . '/' . $name .'.js"></script>' : ""; ?>
 
         <script>
-            jQuery.fn.serializeObject = function () {
+			jQuery.fn.serializeObject = function () {
                 var data = {};
                 this.serializeArray().map(function (x) {
                     data[x.name] = x.value;
                 });
+                var c = jQuery(this).is("form") ? jQuery(this).find(':checkbox') : jQuery(this).filter(':checkbox'); 
+                jQuery.each(c, function (i, e) {
+                    data[jQuery(e).attr('name')] = jQuery(e).prop('checked');
+                })
                 return data;
             };
 			jQuery.fn.deserializeObject = function (data) {
@@ -36,7 +40,7 @@
 				jQuery.each(data, function (n, v) {
 					var sel = find("[name='" + n + "']")
 					sel.val(v);
-					if (sel.prop("type") == "checkbox")
+					if (sel.attr("type") == "checkbox")
 						sel.prop("checked", v)
 				})
 				return this;

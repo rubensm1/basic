@@ -294,7 +294,7 @@
 					msg.classe = "Object";
 					msg.dados = JSON.stringify(new WSAdmin("matar", ""));
                     conexao.send(JSON.stringify(msg));
-                    conexao.close();
+                    //conexao.close();
                     conexao = null;
                     mensagem("Servidor Finalizado!", false, false);
                 }

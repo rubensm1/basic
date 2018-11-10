@@ -12,7 +12,7 @@ class WSMensagem {
 	public $dados;
 	public $erro;
 	
-	public function WSMensagem($msg, $classe = NULL, $dados = NULL, $erro = NULL, $preencode = FALSE) {
+	public function __construct($msg, $classe = NULL, $dados = NULL, $erro = NULL, $preencode = FALSE) {
 		if (gettype($msg) == "string") {
 			$this->type = $msg;
 			if (!$this->hasErroMensagem($erro)) 

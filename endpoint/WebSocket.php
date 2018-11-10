@@ -23,7 +23,7 @@ abstract class WebSocket {
     /** @var array<resource> array de sockets */
     private $sockets;
 
-    public function WebSocket() {
+    public function __construct() {
 	    $this->port = NULL;
 	    $this->conectado = FALSE;
     }
@@ -136,7 +136,7 @@ abstract class WebSocket {
                     socket_getpeername($clientSocket, $ip);
                     /* Bloqueio de ip. Só permite que o Server Administrador seja usado em localhost */
                     if ($ip != "127.0.0.1" && $ip != "::1")
-                        throw new Exception("Não Permitido");
+						throw new WSException("Não Permitido", WSException::ADMIN_ERROR);
                     /* bloqueio para que exista apenas um conectado */
                     if ($this->adminSocket != NULL && $this->adminSocket != $clientSocket)
                         throw new Exception("Falha! Já existe um administrador utilizando!");
@@ -161,6 +161,12 @@ abstract class WebSocket {
                         
                 if ($matarServer)
                     return 2;
+            } catch (WSException $ex) {
+                /* seta a variavel "error" com o erro capturado */
+                $obj->error = $ex->getMessage();
+                $this->enviaDadoSocket($obj, $clientSocket);
+				if ($ex->getCode() == WSException::ADMIN_ERROR)
+					$this->encerraConexao($clientSocket, TRUE);
             } catch (Exception $ex) {
                 /* seta a variavel "error" com o erro capturado */
                 $obj->error = $ex->getMessage();

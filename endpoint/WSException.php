@@ -9,10 +9,11 @@ class WSException extends Exception {
     const BIND_ERROR = 1;
     const LISTEN_ERROR = 2;
 	const ENCODE_ERROR = 3;
+	const ADMIN_ERROR = 4;
 
 
     // Redefine a exceção de forma que a mensagem não seja opcional
-    public function WSException($message, $code = 0, $previous = null) {
+    public function __construct($message, $code = 0, $previous = null) {
         // código
     
         // garante que tudo está corretamente inicializado
